@@ -31,6 +31,7 @@ async function onSubmit(event) {
   page = 1;
   gallery.innerHTML = '';
   loadMoreBtn.classList.add('is-hidden');
+  document.querySelector('.loader').classList.remove('is-hidden'); // Показуємо завантажувач
 
   try {
     const data = await fetchImages(query, page);
@@ -55,11 +56,14 @@ async function onSubmit(event) {
       title: 'Error',
       message: 'Something went wrong. Please try again.',
     });
+  } finally {
+    document.querySelector('.loader').classList.add('is-hidden'); // Приховуємо завантажувач
   }
 }
 
 async function onLoadMore() {
   page += 1;
+  document.querySelector('.loader').classList.remove('is-hidden'); // Показуємо завантажувач
 
   try {
     const data = await fetchImages(query, page);
@@ -81,6 +85,8 @@ async function onLoadMore() {
       title: 'Error',
       message: 'Something went wrong. Please try again.',
     });
+  } finally {
+    document.querySelector('.loader').classList.add('is-hidden'); // Приховуємо завантажувач
   }
 }
 
